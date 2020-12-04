@@ -2,8 +2,7 @@ import re
 
 def oneliner():
     return len(list(filter(lambda passport:
-                           (passport[passport.index("hcl") + 1].startswith('#') and len(
-                               passport[passport.index("hcl") + 1].strip('#')) == 6)
+                           (passport[passport.index("hcl") + 1].startswith('#') and len(passport[passport.index("hcl") + 1]) == 7)
                            and
                            1920 <= int(passport[passport.index("byr") + 1]) <= 2002
                            and
@@ -16,13 +15,7 @@ def oneliner():
                             (150 <= int(re.search(r'\d+', passport[passport.index("hgt") + 1]).group()) <= 193 if (
                                         'cm' in passport[passport.index("hgt") + 1]) else False))
                            and
-                           (('amb' in passport[passport.index("ecl") + 1]) ^ (
-                                       'blu' in passport[passport.index("ecl") + 1]) ^ (
-                                        'brn' in passport[passport.index("ecl") + 1]) ^ (
-                                        'gry' in passport[passport.index("ecl") + 1]) ^ (
-                                        'hzl' in passport[passport.index("ecl") + 1]) ^ (
-                                        'oth' in passport[passport.index("ecl") + 1]) ^ (
-                                        'grn' in passport[passport.index("ecl") + 1]))
+                           (passport[passport.index("ecl") + 1] in ['amb','blu','brn','gry','hzl','oth','grn'])
                            and
                            len(str(re.search(r'\d+', passport[passport.index("pid") + 1]).group())) == 9
                            , list(re.split("[ :\n]", passport) for passport in (list(filter(
@@ -85,7 +78,6 @@ def eclCheck(param):
 
 def pidCheck(param):
     return len(str(re.search(r'\d+', param).group())) == 9
-
 
 def inputAsList():
     f = open('input')
