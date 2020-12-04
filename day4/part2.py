@@ -1,5 +1,34 @@
 import re
 
+def oneliner():
+    return len(list(filter(lambda passport:
+                           (passport[passport.index("hcl") + 1].startswith('#') and len(
+                               passport[passport.index("hcl") + 1].strip('#')) == 6)
+                           and
+                           1920 <= int(passport[passport.index("byr") + 1]) <= 2002
+                           and
+                           2010 <= int(passport[passport.index("iyr") + 1]) <= 2020
+                           and
+                           2020 <= int(passport[passport.index("eyr") + 1]) <= 2030
+                           and
+                           (59 <= int(re.search(r'\d+', passport[passport.index("hgt") + 1]).group()) <= 76 if (
+                                       'in' in passport[passport.index("hgt") + 1]) else
+                            (150 <= int(re.search(r'\d+', passport[passport.index("hgt") + 1]).group()) <= 193 if (
+                                        'cm' in passport[passport.index("hgt") + 1]) else False))
+                           and
+                           (('amb' in passport[passport.index("ecl") + 1]) ^ (
+                                       'blu' in passport[passport.index("ecl") + 1]) ^ (
+                                        'brn' in passport[passport.index("ecl") + 1]) ^ (
+                                        'gry' in passport[passport.index("ecl") + 1]) ^ (
+                                        'hzl' in passport[passport.index("ecl") + 1]) ^ (
+                                        'oth' in passport[passport.index("ecl") + 1]) ^ (
+                                        'grn' in passport[passport.index("ecl") + 1]))
+                           and
+                           len(str(re.search(r'\d+', passport[passport.index("pid") + 1]).group())) == 9
+                           , list(re.split("[ :\n]", passport) for passport in (list(filter(
+            lambda passport: all(field in passport for field in ['hcl', 'byr', 'iyr', 'eyr', 'hgt', 'ecl', 'pid']),
+            inputAsList())))))))
+
 def main():
     input = inputAsList()
     count = 0
@@ -22,7 +51,7 @@ def main():
             pidCheck(passport[passport.index("pid")+1])
             ):
                 count +=1
-    print(count)
+    return count
 
 def hclCheck(param):
     return param.startswith('#') and len(param.strip('#')) == 6
@@ -63,4 +92,5 @@ def inputAsList():
     return f.read().split('\n\n')
 
 
-main()
+print("Part 2 : " + str(main()))
+print("Part 2 : " + str(oneliner()))
