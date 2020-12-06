@@ -1,9 +1,6 @@
 def main():
-    lengths = []
-    for i in inputAsList():
-        i = i.replace('\n','')
-        lengths.append(len(set(i)))
-    return sum(lengths)
+    return sum([len(set.intersection(*map(set,i.split('\n')))) for i in inputAsList()])
+
 
 def inputAsList():
     f = open('input')
