@@ -1,13 +1,5 @@
 import copy
 
-def checkAdjacent(seat,seats):
-    cnt = 0
-    for i in range(seat[0]-1,seat[0]+2):
-        for j in range(seat[1]-1,seat[1]+2):
-            if(0 <= j < len(seats[0]) and 0 <= i < len(seats) and (i,j) != seat and seats[i][j] == '#'):
-                cnt +=1
-    return cnt
-
 deltas = [(-1,1),(-1,0),(1,0),(0,1),(0,-1),(-1,-1),(1,-1),(1,1)]
 def checkVisible(seat,seats):
     list = []
@@ -41,9 +33,6 @@ def main():
                         input[row][seat] = '#'
                     if(input[row][seat] == '#' and checkVisible((row,seat),cop) >= 5):
                         input[row][seat] = 'L'
-        for i in input:
-            print(i)
-        print()
     return sum([(*map(lambda x : x.count('#'),cop))])
 
 def inputAsList():

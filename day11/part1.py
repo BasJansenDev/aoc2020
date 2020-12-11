@@ -26,13 +26,7 @@ def main():
                         input[row][seat] = '#'
                     if(input[row][seat] == '#' and checkAdjacent((row,seat),cop) >= 4):
                         input[row][seat] = 'L'
-        # for i in input:
-        #     print(i)
-        # print()
     return sum([(*map(lambda x : x.count('#'),cop))])
-
-
-
 
 def inputAsList():
     f = open('input')
