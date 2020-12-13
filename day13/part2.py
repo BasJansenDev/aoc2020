@@ -1,10 +1,3 @@
-
-def alignmentCheck(depTime, nextBus):
-    if((depTime+nextBus[1])%nextBus[0] ==0):
-        return True
-    else:
-        return False
-
 def main():
     buses = inputAsList()[1].split(',')
     busTuples = []
@@ -16,7 +9,7 @@ def main():
     depTime = int(buses[0])
     while alignedBuses != len(busTuples):
         depTime += increments
-        if(alignmentCheck(depTime,busTuples[alignedBuses])):
+        if((depTime+busTuples[alignedBuses][1])%busTuples[alignedBuses][0] == 0):
             increments *= int(busTuples[alignedBuses][0])
             alignedBuses+=1
     return depTime
